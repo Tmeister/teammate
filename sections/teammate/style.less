@@ -1,0 +1,156 @@
+.section-teammate{
+    p{
+        margin:0px;
+    }
+
+    .member-wrapper{
+        padding-top: 10px;
+        width: 200px;
+        margin: 0 auto;
+        clear:both;
+
+        .member-avatar {
+            display: inline-block;
+            .border-radius(100px);
+            padding: 6px;
+            background: #f5f5f5;
+            border: 1px solid #d1d1d1;
+            position: relative;
+            &:hover {
+                background: #fff;
+                img{
+                    .opacity(75);
+                }
+            }
+            &.link{
+                &:hover{
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        z-index: 10;
+                        width: 42px;
+                        height: 42px;
+                        background: url(http://wp3.dev/wp-content/plugins/teammate/sections/teammate/img/image-icon-loupe.png) no-repeat center;
+                        left: 50%;
+                        top: 50%;
+                        margin-top: -18px;
+                        margin-left: -18px;
+                    }
+                }
+
+            }
+
+            img {
+                display: inline-block;
+                background: #f5f5f5;
+                .border-radius(300px);
+                z-index: 11;
+                max-width: 180px;
+            }
+        }
+    }
+
+    .member-title{
+        h2{
+            font-size: 20px;
+            text-align: center;
+            display: block;
+            text-transform: uppercase;
+            margin-bottom: 0px;
+        }
+        span.position {
+            display: block;
+            padding-top: 3px;
+            color: #a9a9a9;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 600;
+        }
+    }
+
+    .member-bio{
+        padding: 15px 0 0;
+    }
+    .user-socials{
+        position: relative;
+        width: 250px;
+        margin: 0 auto;
+        display: block;
+        z-index: 90;
+        left:-5px;
+        top:-10px;
+        li{
+            float: left;
+            position:absolute;
+            .opacity(0);
+            a{
+                color:#fff;
+                padding-right: 10px;
+                span{
+
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    .border-radius(50px);
+
+                    i{
+                        font-size: 14px;
+                    }
+                    &:hover{
+                        background-color: #333 !important;
+                    }
+                    &.twitter{
+                        background-color: #34a0d2;
+                        i{
+                            padding: 6px 0 0 5px;
+                        }
+                    }
+                    &.facebook{
+                        background-color: #415898;
+                        i{
+                            padding: 6px 0 0 4px;
+                        }
+                    }
+                    &.google{
+                        background-color: #D74934;
+                        i{
+                            padding: 6px 0 0 5px;
+                        }
+                    }
+                    &.pinterest{
+                        background-color: #CB2026;
+                        i{
+                            padding: 5px 0 0 4px;
+                        }
+                    }
+                    &.linkedin{
+                        background-color: #0173B2;
+                        i{
+                            padding: 4px 0 0 4px;
+                        }
+                    }
+                    &.tumblr{
+                        background-color: #3F607C;
+                        i{
+                            padding: 5px 0 0 4px;
+                        }
+                    }
+                    &.github{
+                        background-color: #161616;
+                        i{
+                            padding: 5px 0 0 4px;
+                        }
+                    }
+                    &.dribbble
+                    {
+                        background-color: #ea4c89;
+                        i{
+                            padding: 5px 0 0 4px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
