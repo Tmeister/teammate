@@ -67,93 +67,171 @@ class TMTeammate extends PageLinesSection {
     ?>
         <script>
             jQuery(document).ready(function($) {
-                console.log('goooooooo');
-                jQuery('<?php echo ".tab". $this->meta["clone"] ?>').cicleSocials({});
+                jQuery('<?php echo ".tab". $this->meta["clone"]?>').cicleSocials();
             });
         </script>
+
+        <style>
+            .tab<?php echo $this->meta['clone']?> .card .team-avatar,
+            .tab<?php echo $this->meta['clone']?> .card .team-content,
+            .tab<?php echo $this->meta['clone']?> .square .member-wrapper .member-avatar,
+            .tab<?php echo $this->meta['clone']?> .circle .member-wrapper .member-avatar{
+                background: <?php echo pl_hashify($this->opt('team_bg_img'))?>;
+                border: 1px solid <?php echo pl_hashify($this->opt('team_bg_img_border'))?>;
+            }
+        </style>
+
     <?php
     }
 
    	function section_template(){
 
         $boxes = $this->opt('team_boxes');
+        $layout = $this->opt('team_layout');
 
         if( $boxes == false){
             echo setup_section_notify($this, __('Please start adding some teammates.', 'tmteammate'));
         }
-
     ?>
         <div class="row tab<?php echo $this->meta['clone'] ?>">
             <?php for ($i=0; $i<$boxes; $i++): ?>
                 <div class="span<?php echo $this->opt('team_span') ?>">
-                    <?php echo $this->draw_circles($i) ?>
+                    <?php
+                        switch ($layout) {
+                            case 'square':
+                                $this->draw_circles($i, 'square');
+                                break;
+                            case 'card':
+                                $this->draw_cards($i, 'card');
+                                break;
+                            case 'circle':
+                            default:
+                                $this->draw_circles($i, 'circle');
+                        }
+                    ?>
                 </div>
             <?php endfor ?>
         </div>
     <?php
     }
 
-    function draw_circles($id){
+    function draw_cards($id, $main_class){
         $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : "http://dummyimage.com/180x180/4d494d/686a82.gif&text=180+x+180";
         ob_start();
     ?>
-        <div class="team-item">
-            <div class="member-wrapper clear">
-                <ul class="user-socials">
-                    <?php foreach ($this->get_valid_social_sites() as $social => $name):
-                        $link = $this->opt($name . '_url_'.$id) ? $this->opt($name . '_url_'.$id) : false;
-                        if( !$link )
-                        {
-                            continue;
-                        }
-
-                        switch ($name) {
-                            case 'google':
-                                $class = "google-plus";
-                                break;
-                            default:
-                                 $class = $name;
-                                break;
-                        }
-
-
-                    ?>
-                        <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon-<?php echo $class ?>"></i></span></a></li>
-                    <?php endforeach ?>
-                </ul>
-                <div class="member-avatar <?php echo $this->opt('team_m_external_'.$id) ? 'link' : '' ;?>">
-                    <?php if (!$this->opt('team_m_external_'.$id)): ?>
+        <div class="<?php echo $main_class ?>">
+            <div class="team-item inner-<?php echo $main_class ?>">
+                <div class="member-wrapper clear">
+                    <div class="team-avatar">
                         <img data-sync="team_m_image_<?php echo $id ?>" src="<?php echo $image ?>" alt="<?php echo $this->opt('team_m_name_'.$id) ?>">
-                    <?php else: ?>
-                        <a href="#">
-                            <img data-sync="team_m_image_<?php echo $id ?>" src="<?php echo $image ?>" alt="<?php echo $this->opt('team_m_name_'.$id) ?>">
-                        </a>
-                    <?php endif ?>
+                    </div>
+                    <div class="team-content">
+                        <div class="member-title">
+                            <h2>
+                                <?php if (!$this->opt('team_m_external_'.$id)): ?>
+                                    <span data-sync="team_m_name_<?php echo $id ?>">
+                                        <?php echo $this->opt('team_m_name_'.$id) ? $this->opt('team_m_name_'.$id) : 'Teammate '.($id+1); ?>
+                                    </span>
+                                <?php else: ?>
+                                     <a href="<?php echo $this->opt('team_m_external_'.$id) ?>">
+                                        <span data-sync="team_m_name_<?php echo $id ?>">
+                                            <?php echo $this->opt('team_m_name_'.$id) ? $this->opt('team_m_name_'.$id) : 'Teammate '.($id+1); ?>
+                                        </span>
+                                    </a>
+                                <?php endif ?>
+                            </h2>
+                            <span class="position" data-sync="team_m_position_<?php echo $id ?>">
+                                <?php echo $this->opt('team_m_position_'.$id) ? $this->opt('team_m_position_'.$id) : 'Teammate Position '.($id+1); ?>
+                            </span>
+                        </div>
+                        <div class="member-bio" data-sync="team_m_bio_<?php echo $id ?>">
+                            <?php
+                                $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+                                echo apply_filters( 'the_content', $bio );
+                            ?>
+                        </div>
+                        <ul class="user-socials">
+                            <?php foreach ($this->get_valid_social_sites() as $social => $name):
+                                $link = $this->opt($name . '_url_'.$id) ? $this->opt($name . '_url_'.$id) : false;
+                                if( !$link ){continue;}
+                                switch ($name) {
+                                    case 'google':
+                                        $class = "google-plus";
+                                        break;
+                                    default:
+                                         $class = $name;
+                                        break;
+                                }
+                            ?>
+                                <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon-<?php echo $class ?>"></i></span></a></li>
+                            <?php endforeach ?>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </div>
-            <div class="member-title">
-                <h2>
-                    <?php if (!$this->opt('team_m_external_'.$id)): ?>
-                        <span data-sync="team_m_name_<?php echo $id ?>">
-                            <?php echo $this->opt('team_m_name_'.$id) ? $this->opt('team_m_name_'.$id) : 'Teammate '.($id+1); ?>
-                        </span>
-                    <?php else: ?>
-                         <a href="#">
+        </div>
+    <?php
+        ob_end_flush();
+    }
+
+    function draw_circles($id, $main_class){
+        $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : "http://dummyimage.com/180x180/4d494d/686a82.gif&text=180+x+180";
+        ob_start();
+    ?>
+        <div class="<?php echo $main_class ?>">
+            <div class="team-item inner-<?php echo $main_class ?>">
+                <div class="member-wrapper clear">
+                    <ul class="user-socials">
+                        <?php foreach ($this->get_valid_social_sites() as $social => $name):
+                            $link = $this->opt($name . '_url_'.$id) ? $this->opt($name . '_url_'.$id) : false;
+                            if( !$link ){continue;}
+                            switch ($name) {
+                                case 'google':
+                                    $class = "google-plus";
+                                    break;
+                                default:
+                                     $class = $name;
+                                    break;
+                            }
+                        ?>
+                            <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon-<?php echo $class ?>"></i></span></a></li>
+                        <?php endforeach ?>
+                    </ul>
+                    <div class="member-avatar <?php echo $this->opt('team_m_external_'.$id) ? 'link' : '' ;?>">
+                        <?php if (!$this->opt('team_m_external_'.$id)): ?>
+                            <img data-sync="team_m_image_<?php echo $id ?>" src="<?php echo $image ?>" alt="<?php echo $this->opt('team_m_name_'.$id) ?>">
+                        <?php else: ?>
+                            <a href="<?php echo $this->opt('team_m_external_'.$id) ?>">
+                                <img data-sync="team_m_image_<?php echo $id ?>" src="<?php echo $image ?>" alt="<?php echo $this->opt('team_m_name_'.$id) ?>">
+                            </a>
+                        <?php endif ?>
+                    </div>
+                </div>
+                <div class="member-title">
+                    <h2>
+                        <?php if (!$this->opt('team_m_external_'.$id)): ?>
                             <span data-sync="team_m_name_<?php echo $id ?>">
                                 <?php echo $this->opt('team_m_name_'.$id) ? $this->opt('team_m_name_'.$id) : 'Teammate '.($id+1); ?>
                             </span>
-                        </a>
-                    <?php endif ?>
-                </h2>
-                <span class="position" data-sync="team_m_position_<?php echo $id ?>">
-                    <?php echo $this->opt('team_m_position_'.$id) ? $this->opt('team_m_position_'.$id) : 'Teammate Position '.($id+1); ?>
-                </span>
-            </div>
-            <div class="member-bio" data-sync="team_m_bio_<?php echo $id ?>">
-                <?php
-                    $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
-                    echo apply_filters( 'the_content', $bio );
-                ?>
+                        <?php else: ?>
+                             <a href="<?php echo $this->opt('team_m_external_'.$id) ?>">
+                                <span data-sync="team_m_name_<?php echo $id ?>">
+                                    <?php echo $this->opt('team_m_name_'.$id) ? $this->opt('team_m_name_'.$id) : 'Teammate '.($id+1); ?>
+                                </span>
+                            </a>
+                        <?php endif ?>
+                    </h2>
+                    <span class="position" data-sync="team_m_position_<?php echo $id ?>">
+                        <?php echo $this->opt('team_m_position_'.$id) ? $this->opt('team_m_position_'.$id) : 'Teammate Position '.($id+1); ?>
+                    </span>
+                </div>
+                <div class="member-bio" data-sync="team_m_bio_<?php echo $id ?>">
+                    <?php
+                        $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+                        echo apply_filters( 'the_content', $bio );
+                    ?>
+                </div>
             </div>
         </div>
     <?php
@@ -182,6 +260,19 @@ class TMTeammate extends PageLinesSection {
                         'count_number' => 12,
                         'label'        => __('Number of Columns for each box (12 Col Grid)', 'tmteammate')
                     ),
+                    array(
+                        'key'       => 'team_bg_img',
+                        'type'      => 'color',
+                        'title'     => __('Background Color','tmteammate'),
+                        'default'   => '#fafafa'
+                    ),
+                    array(
+                        'key'       => 'team_bg_img_border',
+                        'type'      => 'color',
+                        'title'     => __('Border Color','tmteammate'),
+                        'default'   => '#eae8e8'
+                    ),
+
                     array(
                         'key'   => 'team_layout',
                         'type'  => 'select',
