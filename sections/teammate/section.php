@@ -116,7 +116,7 @@ class TMTeammate extends PageLinesSection {
     }
 
     function draw_cards($id, $main_class){
-        $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : "http://dummyimage.com/180x180/4d494d/686a82.gif&text=180+x+180";
+        $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : "http://dummyimage.com/100/4d494d/686a82.gif&text=100+x+100";
         ob_start();
     ?>
         <div class="<?php echo $main_class ?>">
@@ -146,7 +146,7 @@ class TMTeammate extends PageLinesSection {
                         </div>
                         <div class="member-bio" data-sync="team_m_bio_<?php echo $id ?>">
                             <?php
-                                $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+                                $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consec tetur adipisicing elit.';
                                 echo apply_filters( 'the_content', $bio );
                             ?>
                         </div>
@@ -176,7 +176,8 @@ class TMTeammate extends PageLinesSection {
     }
 
     function draw_circles($id, $main_class){
-        $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : "http://dummyimage.com/180x180/4d494d/686a82.gif&text=180+x+180";
+        $dummy = ( $main_class == 'circle') ? 'http://dummyimage.com/180x180/4d494d/686a82.gif&text=180+x+180' : 'http://dummyimage.com/250/4d494d/686a82.gif&text=250+x+250';
+        $image = $this->opt('team_m_image_'.$id) ? $this->opt('team_m_image_'.$id) : $dummy;
         ob_start();
     ?>
         <div class="<?php echo $main_class ?>">
@@ -228,7 +229,7 @@ class TMTeammate extends PageLinesSection {
                 </div>
                 <div class="member-bio" data-sync="team_m_bio_<?php echo $id ?>">
                     <?php
-                        $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
+                        $bio = $this->opt('team_m_bio_'.$id) ? $this->opt('team_m_bio_'.$id) : 'Lorem ipsum dolor sit amet, consec tetur adipisicing elit.';
                         echo apply_filters( 'the_content', $bio );
                     ?>
                 </div>
