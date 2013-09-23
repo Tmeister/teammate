@@ -1,6 +1,10 @@
 == Description ==
 
-Description of your product goes here. It's what is shown on the actual store page. You can use HTML.
+Teammate is a DMS section that allows you to show details for a company member or work team member, every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links.
+
+This section can be used for create a detailed "About Us", "Meet the team" even can be used to create a "Testimonials" page.
+
+Teammate comes with 3 retina ready and responsive layouts to choose from, Circle, Square or Card.
 
 == Changelog ==
 
