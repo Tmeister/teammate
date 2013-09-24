@@ -3,7 +3,7 @@
     Plugin Name: Teammate
     Author: Enrique Chavez
     Author URI: http://enriquechavez.co
-    Description: Teammate is a DMS section that allows you to show details for a company member or work team member, every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used for create a detailed "About Us", "Meet the team" even can be used to create a "Testimonials" page.
+    Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
     Class Name: TMTeammate
     Demo: http://dms.tmeister.net/teammate
     Version: 1.0

@@ -3,7 +3,7 @@
 	Section: Teammate
 	Author: Enriue Chavez
 	Author URI: http://enriquechavez.co
-	Description: Teammate is a DMS section that allows you to show details for a company member or work team member, every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links.<br>This section can be used for create a detailed "About Us", "Meet the team" even can be used to create a "Testimonials" page.
+	Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
 	Class Name: TMTeammate
 	Demo: http://dms.tmeister.net/teammate
 	Version: 1.0
@@ -240,13 +240,23 @@ class TMTeammate extends PageLinesSection {
     }
 
 	function section_opts(){
+        $help = '
+            <h4>Please Flush cache</h4>
+            <div>In order to load the LESS/CSS files correctly after you install the section, please, Go to "Global Options" -> "Resets" and click the "Flush Caches" Button.<br><br>If you miss this step, the section will shows unstyled, you will need to do this only one time for each layout.</div>
+        ';
         $opts = array(
             array(
-                'key'           => 'team-setup',
-                'type'          => 'multi',
-                'title'         => __('Teammate Configuration', 'tmteammate'),
-                'label'         => __('Teammate Configuration', 'tmteammate'),
-                'opts' => array(
+                'key' => 'team-help-setup',
+                'title' => 'Flush LESS/CSS cache',
+                'type' => 'template',
+                'template' => $help
+            ),
+            array(
+                'key'   => 'team-setup',
+                'type'  => 'multi',
+                'title' => __('Teammate Configuration', 'tmteammate'),
+                'label' => __('Teammate Configuration', 'tmteammate'),
+                'opts'  => array(
                     array(
                         'key'          => "team_boxes",
                         'type'         => 'count_select',
