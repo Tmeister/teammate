@@ -10,7 +10,7 @@
     Filter: misc
 */
 
-//add_action( 'admin_init', 'teammate_check_for_updates' );
+add_action( 'admin_init', 'teammate_check_for_updates' );
 
 function teammate_check_for_updates(){
     $item_name  = "Teammate";
