@@ -8,6 +8,7 @@
 	Demo: http://dms.tmeister.net/teammate
 	Version: 1.1
 	Filter: misc
+    PageLines: true
 */
 
 class TMTeammate extends PageLinesSection {
