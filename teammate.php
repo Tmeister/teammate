@@ -8,9 +8,10 @@
     Demo: http://dms.tmeister.net/teammate
     Version: 1.1
     Filter: misc
+    PageLines: true
 */
 
-add_action( 'admin_init', 'teammate_check_for_updates' );
+//add_action( 'admin_init', 'teammate_check_for_updates' );
 
 function teammate_check_for_updates(){
     $item_name  = "Teammate";
