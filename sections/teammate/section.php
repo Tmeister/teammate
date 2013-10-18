@@ -408,7 +408,7 @@ class TMTeammate extends PageLinesSection {
             'type' => 'accordion',
             'col' => 2,
             'title' => __( 'Team Member Settings', 'tmteammate' ),
-            'post_type' => 'Go the hell',
+            'post_type' => 'Team Member',
             'opts'  => array(
                     array(
                         'key'   => 'name',
