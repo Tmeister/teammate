@@ -6,14 +6,14 @@
 	Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
 	Class Name: TMTeammate
 	Demo: http://dms.tmeister.net/teammate
-	Version: 1.0
+	Version: 1.1
 	Filter: misc
 */
 
 class TMTeammate extends PageLinesSection {
 
     var $section_name      = 'Teammate';
-    var $section_version   = '1.0';
+    var $section_version   = '1.1';
     var $section_key ;
     var $chavezShop;
 
@@ -117,13 +117,12 @@ class TMTeammate extends PageLinesSection {
             'tumblr'    => 'tumblr_url_%s',
             'twitter'   => 'twitter_url_%s'
         );
-        $team_array = $this->upgrade_to_array_format('team_array', $team_array, $upgrade_mapping, $boxes);
-        //print_r($team_array);
+        $team_array = $this->upgrade_to_array_format_from_zero('team_array', $team_array, $upgrade_mapping, $boxes);
         if( !is_array( $team_array)){
             echo setup_section_notify($this, __('Please start adding some teammates.', 'tmteammate'));
             return;
         }
-        $id = 0;
+        $id = 1;
         ob_start();
         ?>
             <div class="row tab<?php echo $this->meta['clone'] ?>">
@@ -534,6 +533,41 @@ class TMTeammate extends PageLinesSection {
     {
         return array("dribbble", "facebook", "github", "google", "linkedin" ,"pinterest", "tumblr", "twitter");
     }
+    // Custom Upgrate my count start in 0 not in 1.
+    function upgrade_to_array_format_from_zero( $new_key, $array, $mapping, $number ){
+        $scopes = array('local', 'type', 'global');
+        if( ! $number )
+        {
+            return $array;
+        }
+
+        if( !$array || $array == 'false' || empty( $array ) )
+        {
+            for($i = 0; $i < $number; $i++)
+            {
+                // Set up new output for viewing
+                foreach( $mapping as $new_index_key => $old_option_key ){
+                    $old_settings[ $i ][ $new_index_key ] = $this->opt( sprintf($old_option_key, $i) );
+                }
+
+                // Load up old values using cascade
+                foreach( $scopes as $scope )
+                {
+                    foreach( $mapping as $new_index_key => $old_option_key ){
+                        $upgrade_array[$scope]['item'.($i+1)][ $new_index_key ] = $this->opt( sprintf($old_option_key, $i), array('scope' => $scope) );
+                    }
+                }
+            }
+            // Setup in new format & update
+            foreach($scopes as $scope)
+            {
+                $this->opt_update( $new_key, $upgrade_array[$scope], $scope );
+            }
+            return $old_settings;
 
 
+        } else{
+            return $array;
+        }
+    }
 }
