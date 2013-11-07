@@ -8,6 +8,7 @@
 	Demo: http://dms.tmeister.net/teammate
 	Version: 1.1
 	Filter: misc
+    PageLines: true
 */
 
 class TMTeammate extends PageLinesSection {
@@ -20,8 +21,8 @@ class TMTeammate extends PageLinesSection {
     function section_persistent()
     {
         $this->section_key = strtolower( str_replace(' ', '_', $this->section_name) );
-        $this->verify_license();
-        add_filter('pl_sorted_settings_array', array(&$this, 'add_global_panel'));
+        //$this->verify_license();
+        //add_filter('pl_sorted_settings_array', array(&$this, 'add_global_panel'));
     }
 
     function verify_license(){
@@ -407,7 +408,7 @@ class TMTeammate extends PageLinesSection {
             'type' => 'accordion',
             'col' => 2,
             'title' => __( 'Team Member Settings', 'tmteammate' ),
-            'post_type' => 'Go the hell',
+            'post_type' => 'Team Member',
             'opts'  => array(
                     array(
                         'key'   => 'name',
