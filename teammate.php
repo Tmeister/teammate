@@ -24,7 +24,7 @@ function teammate_check_for_updates(){
         $license_key = trim( get_option( $item_key."_license", $default = false ) );
 
         $edd_updater = new EDD_SL_Plugin_Updater( 'http://enriquechavez.co', __FILE__, array(
-                'version'   => '1.1',
+                'version'   => '1.1.1',
                 'license'   => $license_key,
                 'item_name' => $item_name,
                 'author'    => 'Enrique Chavez'
