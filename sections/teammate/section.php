@@ -6,14 +6,14 @@
 	Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
 	Class Name: TMTeammate
 	Demo: http://dms.tmeister.net/teammate
-	Version: 1.1
+	Version: 1.1.1
 	Filter: misc
 */
 
 class TMTeammate extends PageLinesSection {
 
     var $section_name      = 'Teammate';
-    var $section_version   = '1.1';
+    var $section_version   = '1.1.1';
     var $section_key ;
     var $chavezShop;
 
@@ -216,7 +216,7 @@ class TMTeammate extends PageLinesSection {
                                         <?php echo $teammate['name'] ? $teammate['name'] : 'Teammate '.($id+1); ?>
                                     </span>
                                 <?php else: ?>
-                                     <a href="<?php echo $this->opt('team_m_external_'.$id) ?>">
+                                     <a href="<?php echo $teammate['external'] ?>">
                                         <span data-sync="<?php echo $old ? 'team_m_name_'.$id : 'team_array_item'.$id.'_name' ?>">
                                             <?php echo $teammate['name'] ? $teammate['name'] : 'Teammate '.($id+1); ?>
                                         </span>
