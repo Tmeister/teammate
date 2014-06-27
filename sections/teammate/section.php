@@ -6,7 +6,7 @@
 	Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
 	Class Name: TMTeammate
 	Demo: http://dms.tmeister.net/teammate
-	Version: 1.2
+	Version: 1.3
 	Filter: misc
     PageLines: true
 */
@@ -14,7 +14,7 @@
 class TMTeammate extends PageLinesSection {
 
     var $section_name      = 'Teammate';
-    var $section_version   = '1.2';
+    var $section_version   = '1.3';
     var $section_key ;
     var $chavezShop;
 
@@ -248,6 +248,9 @@ class TMTeammate extends PageLinesSection {
                                     case 'google':
                                         $class = "google-plus";
                                         break;
+                                    case 'email':
+                                    	$class = "envelope-o";
+                                    	break;
                                     default:
                                          $class = $name;
                                         break;
@@ -287,6 +290,9 @@ class TMTeammate extends PageLinesSection {
                             switch ($name) {
                                 case 'google':
                                     $class = "google-plus";
+                                    break;
+                                case 'email':
+                                    $class = "envelope-o";
                                     break;
                                 default:
                                      $class = $name;
@@ -542,7 +548,7 @@ class TMTeammate extends PageLinesSection {
 
     function get_valid_social_sites()
     {
-        return array("dribbble", "facebook", "github", "google", "linkedin" ,"pinterest", "tumblr", "twitter");
+        return array("email","dribbble", "facebook", "github", "google", "linkedin" ,"pinterest", "tumblr", "twitter");
     }
     // Custom Upgrate my count start in 0 not in 1.
     function upgrade_to_array_format_from_zero( $new_key, $array, $mapping, $number ){
