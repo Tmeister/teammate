@@ -6,14 +6,14 @@
 	Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
 	Class Name: TMTeammate
 	Demo: http://dms.tmeister.net/teammate
-	Version: 1.1.1
+	Version: 1.3
 	Filter: misc
 */
 
 class TMTeammate extends PageLinesSection {
 
     var $section_name      = 'Teammate';
-    var $section_version   = '1.1.1';
+    var $section_version   = '1.3';
     var $section_key ;
     var $chavezShop;
 
@@ -200,6 +200,12 @@ class TMTeammate extends PageLinesSection {
     function draw_cards($teammate, $main_class, $id){
         $image = $teammate['image'] ? $teammate['image'] : "http://dummyimage.com/100/4d494d/686a82.gif&text=100+x+100";
         $old = (PL_CORE_VERSION > '1.0.4') ? false : true;
+
+        $teammate['external'] = ( isset($teammate['external']) && $teammate['external'] ) ? $teammate['external'] : false;
+        $teammate['name'] = ( isset($teammate['name']) && $teammate['name'] ) ? $teammate['name'] : false;
+        $teammate['bio'] = ( isset($teammate['bio']) && $teammate['bio'] ) ? $teammate['bio'] : false;
+        $teammate['position'] = ( isset($teammate['position']) && $teammate['position'] ) ? $teammate['position'] : false;
+
         ob_start();
     ?>
         <div class="<?php echo $main_class ?>">
@@ -235,18 +241,21 @@ class TMTeammate extends PageLinesSection {
                         </div>
                         <ul class="user-socials">
                             <?php foreach ($this->get_valid_social_sites() as $social => $name):
-                                $link = $teammate[$name] ? $teammate[$name] : false;
+                                $link = ( isset($teammate[$name]) && $teammate[$name] ) ? $teammate[$name] : false;
                                 if( !$link ){continue;}
                                 switch ($name) {
                                     case 'google':
                                         $class = "google-plus";
                                         break;
+                                    case 'email':
+                                    	$class = "envelope-o";
+                                    	break;
                                     default:
                                          $class = $name;
                                         break;
                                 }
                             ?>
-                                <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon-<?php echo $class ?>"></i></span></a></li>
+                                <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon icon-<?php echo $class ?>"></i></span></a></li>
                             <?php endforeach ?>
                         </ul>
                         <div class="clear"></div>
@@ -263,6 +272,10 @@ class TMTeammate extends PageLinesSection {
 
         $image = $teammate['image'] ? $teammate['image'] : $dummy;
         $old = (PL_CORE_VERSION > '1.0.4') ? false : true;
+        $teammate['external'] = ( isset($teammate['external']) && $teammate['external'] ) ? $teammate['external'] : false;
+        $teammate['name'] = ( isset($teammate['name']) && $teammate['name'] ) ? $teammate['name'] : false;
+        $teammate['bio'] = ( isset($teammate['bio']) && $teammate['bio'] ) ? $teammate['bio'] : false;
+        $teammate['position'] = ( isset($teammate['position']) && $teammate['position'] ) ? $teammate['position'] : false;
 
         ob_start();
     ?>
@@ -271,18 +284,21 @@ class TMTeammate extends PageLinesSection {
                 <div class="member-wrapper clear">
                     <ul class="user-socials">
                         <?php foreach ($this->get_valid_social_sites() as $social => $name):
-                            $link = $teammate[$name] ? $teammate[$name] : false;
+                            $link = ( isset($teammate[$name]) && $teammate[$name] ) ? $teammate[$name] : false;
                             if( !$link ){continue;}
                             switch ($name) {
                                 case 'google':
                                     $class = "google-plus";
+                                    break;
+                                case 'email':
+                                    $class = "envelope-o";
                                     break;
                                 default:
                                      $class = $name;
                                     break;
                             }
                         ?>
-                            <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon-<?php echo $class ?>"></i></span></a></li>
+                            <li data-toggle="tooltip" title="<?php echo ucfirst($name) ?>"><a href="<?php echo $link ?>"><span class="<?php echo $name ?>"><i class="icon icon-<?php echo $class ?>"></i></span></a></li>
                         <?php endforeach ?>
                     </ul>
                     <div class="member-avatar <?php echo $teammate['external'] ? 'link' : '' ;?>">
@@ -531,7 +547,7 @@ class TMTeammate extends PageLinesSection {
 
     function get_valid_social_sites()
     {
-        return array("dribbble", "facebook", "github", "google", "linkedin" ,"pinterest", "tumblr", "twitter");
+        return array("email","dribbble", "facebook", "github", "google", "linkedin" ,"pinterest", "tumblr", "twitter");
     }
     // Custom Upgrate my count start in 0 not in 1.
     function upgrade_to_array_format_from_zero( $new_key, $array, $mapping, $number ){

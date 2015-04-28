@@ -6,7 +6,7 @@
     Description: Teammate is a DMS section that allows you to show details for a company member or work team member. Every teammate box has up to 12 configuration options: Avatar, Name, Position, mini-bio, and up to 8 social media links. This section can be used to create a detailed "About Us", "Meet the team", or can even be used to create a "Testimonials" page.
     Class Name: TMTeammate
     Demo: http://dms.tmeister.net/teammate
-    Version: 1.1.1
+    Version: 1.3
     Filter: misc
 */
 
@@ -24,7 +24,7 @@ function teammate_check_for_updates(){
         $license_key = trim( get_option( $item_key."_license", $default = false ) );
 
         $edd_updater = new EDD_SL_Plugin_Updater( 'http://enriquechavez.co', __FILE__, array(
-                'version'   => '1.1.1',
+                'version'   => '1.3',
                 'license'   => $license_key,
                 'item_name' => $item_name,
                 'author'    => 'Enrique Chavez'
